@@ -1,5 +1,5 @@
 [
     {
-        "keys": ["ctrl+c"], "command": "caniuse"
+        "keys": ["command+alt+c"], "command": "caniuse"
     }
 ]

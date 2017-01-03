@@ -184,7 +184,7 @@ plugins = plugins.concat(fs.readdirSync(sublime.installed_packages_path()));
 plugins.forEach(function(plugin){
 	if(plugin !== '.DS_Store'){
 		var basedir = sublime.packages_path() + '/' + plugin + '/';
-		if(plugin === 'caniuse' || plugin === 'caniuse_local') {
+		if(plugin === 'caniuse' || plugin === 'caniuse') {
 			try {
 				load_js_file(basedir + 'index.js');
 			} catch(e) {}

@@ -1,4 +1,4 @@
-var caniuseData = require("./data/data.js");
+var caniuseData = require("./data/data2.js");
 var adapterQueryData = require("./data/adapter.js");
 
 module.exports = function(view, edit){
@@ -29,9 +29,9 @@ module.exports = function(view, edit){
         var result = [];
         for(var i = 0, li; li = detectBrowers[i++]; ) {
             var vers = getVers(data[li]);
-            vers && result.push(li + " " + vers);
+            vers && result.push("<li>" + li + ": " + vers + "</li>");
         }
-        return result.join(" | ");
+        return "<ul>" + result.join(" ") + "</ul>";
     }
 
     function getVers(data) {
@@ -54,31 +54,12 @@ module.exports = function(view, edit){
         return result.join("-");
     }
 
-    var showStatus = function() {
+    var showPopup = function() {
         var timer = null;
         var shower = null;
         var uid = 0;
         return function(content) {
-            // for(var i = 0; i< 30;i++){
-            //     view.erase_status("caniuse" + uid);
-            // }
-
-            // TODO, how to keep info on status bar?
-            var id = uid++;
-            // clearTimeout(timer);
-            // clearInterval(shower);
-
-            view.set_status("caniuse" + id, content);
-
-            // var ii = 0;
-
-            // shower = setInterval(function() {
-            //     view.set_status("caniuse" + id, content);
-            // }, 400);
-            timer = setTimeout(function() {
-                // shower && clearInterval(shower);
-                view.erase_status("caniuse" + id);
-            }, 30000);
+            view.show_popup(content);
         }
     }();
 
@@ -106,5 +87,5 @@ module.exports = function(view, edit){
 
     var query = adapterQuery(text, data);
 
-    if(query && data[query]) showStatus(data[query].title + ": " + getResult(data[query].stats));
+    if(query && data[query]) showPopup("<style>html{background-color: #232628; color:#CCC; padding: 10px;}body {font-size:12px;}h1 {color: #99cc99;font-size: 14px;}</style><h1>" + data[query].title + "</h1>" + getResult(data[query].stats));
 }
